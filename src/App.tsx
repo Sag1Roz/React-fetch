@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { ConceptProduct } from "./Components/ConcepteProudect";
+import { Product } from "./models/Products.ts";
 
 function App() {
-  const [products, setProducts] = useState([] as any[]);
+  const [products, setProducts] = useState([] as Product[]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   useEffect(() => {
@@ -25,20 +27,9 @@ function App() {
     return <h1 className="text-4xl text-red-600">Error getting products</h1>;
 
   return (
-    <div className="grid grid-cols-4 p-5 gap-2">
-      {products.map((product, i) => {
-        return (
-          <div key={i}>
-            <div className="border cursor-pointer rounded-md">
-              <img className="" src={`${product.image}`} alt="" />
-              <div className="grid grid-cols-2 p-2">
-                <div className="col-span-2 font-bold">{product.name}</div>
-                <p>מחיר {product.price}</p>
-                <p>מחיר אילת {product.eilatPrice.toString().slice(0, 4)}</p>
-              </div>
-            </div>
-          </div>
-        );
+    <div className="grid grid-cols-3 p-5 gap-2">
+      {products.map((product) => {
+        return <ConceptProduct key={product.id} product={product} />;
       })}
     </div>
   );
